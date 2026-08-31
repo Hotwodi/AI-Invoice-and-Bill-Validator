@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ibv_suspicious_invoice_tree" model="ir.ui.view">
+        <field name="name">ibv.suspicious.invoice.tree</field>
+        <field name="model">ibv.suspicious.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Suspicious Invoices" decoration-info="risk_level=='low'" decoration-warning="risk_level=='medium'" decoration-danger="risk_level=='high'">
+                <field name="name"/>
+                <field name="invoice_number"/>
+                <field name="partner_name"/>
+                <field name="amount" sum="Total Amount"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="risk_level" widget="badge" decoration-info="risk_level=='low'" decoration-warning="risk_level=='medium'" decoration-danger="risk_level=='high'"/>
+                <field name="ai_risk_score" widget="progressbar"/>
+                <field name="assigned_to"/>
+                <field name="state" widget="badge" decoration-danger="state=='flagged'" decoration-warning="state=='reviewing'" decoration-success="state=='confirmed'" decoration-muted="state=='cleared'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ibv_suspicious_invoice_form" model="ir.ui.view">
+        <field name="name">ibv.suspicious.invoice.form</field>
+        <field name="model">ibv.suspicious.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Suspicious Invoice">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="flagged,reviewing,confirmed,cleared"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. SUSP-2024-001"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="invoice_number"/>
+                            <field name="partner_name"/>
+                            <field name="amount"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="assigned_to"/>
+                        </group>
+                        <group>
+                            <field name="risk_level" widget="badge" decoration-info="risk_level=='low'" decoration-warning="risk_level=='medium'" decoration-danger="risk_level=='high'"/>
+                            <field name="ai_risk_score" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <group string="Suspicion Reason">
+                        <field name="suspicion_reason" nolabel="1" colspan="2" placeholder="Explain why this invoice is suspicious..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ibv_suspicious_invoice_search" model="ir.ui.view">
+        <field name="name">ibv.suspicious.invoice.search</field>
+        <field name="model">ibv.suspicious.invoice</field>
+        <field name="arch" type="xml">
+            <search string="Suspicious Invoices">
+                <field name="name"/>
+                <field name="invoice_number"/>
+                <field name="partner_name"/>
+                <field name="assigned_to"/>
+                <filter name="filter_flagged" string="Flagged" domain="[('state','=','flagged')]"/>
+                <filter name="filter_reviewing" string="Reviewing" domain="[('state','=','reviewing')]"/>
+                <filter name="filter_confirmed" string="Confirmed" domain="[('state','=','confirmed')]"/>
+                <filter name="filter_cleared" string="Cleared" domain="[('state','=','cleared')]"/>
+                <filter name="filter_high" string="High Risk" domain="[('risk_level','=','high')]"/>
+                <filter name="filter_medium" string="Medium Risk" domain="[('risk_level','=','medium')]"/>
+                <filter name="filter_low" string="Low Risk" domain="[('risk_level','=','low')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_risk" string="Risk Level" context="{'group_by':'risk_level'}"/>
+                    <filter name="group_state" string="State" context="{'group_by':'state'}"/>
+                    <filter name="group_assigned" string="Assigned To" context="{'group_by':'assigned_to'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ibv_suspicious_invoice" model="ir.actions.act_window">
+        <field name="name">Suspicious Invoices</field>
+        <field name="res_model">ibv.suspicious.invoice</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No suspicious invoices found
+            </p>
+            <p>
+                Suspicious invoices are flagged by the AI validator for manual review.
+                Review the risk score and reason before confirming or clearing.
+            </p>
+        </field>
+    </record>
+</odoo>

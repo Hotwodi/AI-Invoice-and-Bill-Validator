@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ibv_validation_summary_tree" model="ir.ui.view">
+        <field name="name">ibv.validation.summary.tree</field>
+        <field name="model">ibv.validation.summary</field>
+        <field name="arch" type="xml">
+            <tree string="Validation Summaries">
+                <field name="name"/>
+                <field name="period"/>
+                <field name="total_invoices"/>
+                <field name="passed"/>
+                <field name="warnings"/>
+                <field name="errors"/>
+                <field name="ai_accuracy" widget="progressbar"/>
+                <field name="generated_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ibv_validation_summary_form" model="ir.ui.view">
+        <field name="name">ibv.validation.summary.form</field>
+        <field name="model">ibv.validation.summary</field>
+        <field name="arch" type="xml">
+            <form string="Validation Summary">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. January 2024 Summary"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period"/>
+                            <field name="generated_date"/>
+                        </group>
+                        <group>
+                            <field name="ai_accuracy" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <group string="Counts">
+                        <group>
+                            <field name="total_invoices"/>
+                            <field name="passed"/>
+                        </group>
+                        <group>
+                            <field name="warnings"/>
+                            <field name="errors"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ibv_validation_summary" model="ir.actions.act_window">
+        <field name="name">Validation Summary</field>
+        <field name="res_model">ibv.validation.summary</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new validation summary
+            </p>
+            <p>
+                Validation summaries aggregate validation results for a given period.
+            </p>
+        </field>
+    </record>
+</odoo>

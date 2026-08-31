@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ibv_validation_rule_user,ibv.validation.rule.user,model_ibv_validation_rule,base.group_user,1,1,1,1
+access_ibv_validation_result_user,ibv.validation.result.user,model_ibv_validation_result,base.group_user,1,1,1,1
+access_ibv_suspicious_invoice_user,ibv.suspicious.invoice.user,model_ibv_suspicious_invoice,base.group_user,1,1,1,1
+access_ibv_validation_summary_user,ibv.validation.summary.user,model_ibv_validation_summary,base.group_user,1,1,1,1

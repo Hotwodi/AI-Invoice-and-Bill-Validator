@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ibv_validation_result_tree" model="ir.ui.view">
+        <field name="name">ibv.validation.result.tree</field>
+        <field name="model">ibv.validation.result</field>
+        <field name="arch" type="xml">
+            <tree string="Validation Results" decoration-warning="result=='warning'" decoration-danger="result=='error'" decoration-success="result=='pass'">
+                <field name="name"/>
+                <field name="invoice_ref"/>
+                <field name="partner_name"/>
+                <field name="amount" sum="Total Amount"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="rule_id"/>
+                <field name="result" widget="badge" decoration-warning="result=='warning'" decoration-danger="result=='error'" decoration-success="result=='pass'"/>
+                <field name="ai_confidence" widget="progressbar"/>
+                <field name="detected_date"/>
+                <field name="state" widget="badge" decoration-info="state=='new'" decoration-success="state=='resolved'" decoration-muted="state=='ignored'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ibv_validation_result_form" model="ir.ui.view">
+        <field name="name">ibv.validation.result.form</field>
+        <field name="model">ibv.validation.result</field>
+        <field name="arch" type="xml">
+            <form string="Validation Result">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="new,resolved,ignored"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. INV-2024-001"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="invoice_ref"/>
+                            <field name="partner_name"/>
+                            <field name="amount"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="rule_id"/>
+                        </group>
+                        <group>
+                            <field name="result" widget="badge" decoration-warning="result=='warning'" decoration-danger="result=='error'" decoration-success="result=='pass'"/>
+                            <field name="ai_confidence" widget="progressbar"/>
+                            <field name="detected_date"/>
+                        </group>
+                    </group>
+                    <group string="Message">
+                        <field name="message" nolabel="1" colspan="2" placeholder="Detailed validation message..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ibv_validation_result_search" model="ir.ui.view">
+        <field name="name">ibv.validation.result.search</field>
+        <field name="model">ibv.validation.result</field>
+        <field name="arch" type="xml">
+            <search string="Validation Results">
+                <field name="name"/>
+                <field name="invoice_ref"/>
+                <field name="partner_name"/>
+                <field name="rule_id"/>
+                <filter name="filter_pass" string="Pass" domain="[('result','=','pass')]"/>
+                <filter name="filter_warning" string="Warning" domain="[('result','=','warning')]"/>
+                <filter name="filter_error" string="Error" domain="[('result','=','error')]"/>
+                <filter name="filter_new" string="New" domain="[('state','=','new')]"/>
+                <filter name="filter_resolved" string="Resolved" domain="[('state','=','resolved')]"/>
+                <filter name="filter_ignored" string="Ignored" domain="[('state','=','ignored')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_result" string="Result" context="{'group_by':'result'}"/>
+                    <filter name="group_state" string="State" context="{'group_by':'state'}"/>
+                    <filter name="group_rule" string="Rule" context="{'group_by':'rule_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ibv_validation_result" model="ir.actions.act_window">
+        <field name="name">Validation Results</field>
+        <field name="res_model">ibv.validation.result</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No validation results yet
+            </p>
+            <p>
+                Validation results are produced when invoices and bills are checked
+                against your validation rules.
+            </p>
+        </field>
+    </record>
+</odoo>

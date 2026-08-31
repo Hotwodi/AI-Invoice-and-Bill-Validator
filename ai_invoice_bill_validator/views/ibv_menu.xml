@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ibv_root"
+        name="Invoice Validator"
+        sequence="90"
+        web_icon="ai_invoice_bill_validator,static/description/icon.png"/>
+
+    <menuitem id="menu_ibv_validation_rules"
+        name="Validation Rules"
+        parent="menu_ibv_root"
+        action="action_ibv_validation_rule"
+        sequence="10"/>
+
+    <menuitem id="menu_ibv_validation_results"
+        name="Validation Results"
+        parent="menu_ibv_root"
+        action="action_ibv_validation_result"
+        sequence="20"/>
+
+    <menuitem id="menu_ibv_suspicious_invoices"
+        name="Suspicious Invoices"
+        parent="menu_ibv_root"
+        action="action_ibv_suspicious_invoice"
+        sequence="30"/>
+
+    <menuitem id="menu_ibv_validation_summary"
+        name="Validation Summary"
+        parent="menu_ibv_root"
+        action="action_ibv_validation_summary"
+        sequence="40"/>
+</odoo>

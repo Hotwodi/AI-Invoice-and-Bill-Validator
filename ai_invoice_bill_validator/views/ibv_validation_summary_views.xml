@@ -4,7 +4,7 @@
         <field name="name">ibv.validation.summary.tree</field>
         <field name="model">ibv.validation.summary</field>
         <field name="arch" type="xml">
-            <tree string="Validation Summaries">
+            <list string="Validation Summaries">
                 <field name="name"/>
                 <field name="period"/>
                 <field name="total_invoices"/>
@@ -13,7 +13,7 @@
                 <field name="errors"/>
                 <field name="ai_accuracy" widget="progressbar"/>
                 <field name="generated_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -54,7 +54,7 @@
     <record id="action_ibv_validation_summary" model="ir.actions.act_window">
         <field name="name">Validation Summary</field>
         <field name="res_model">ibv.validation.summary</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new validation summary

@@ -4,7 +4,7 @@
         <field name="name">ibv.validation.result.tree</field>
         <field name="model">ibv.validation.result</field>
         <field name="arch" type="xml">
-            <tree string="Validation Results" decoration-warning="result=='warning'" decoration-danger="result=='error'" decoration-success="result=='pass'">
+            <list string="Validation Results" decoration-warning="result=='warning'" decoration-danger="result=='error'" decoration-success="result=='pass'">
                 <field name="name"/>
                 <field name="invoice_ref"/>
                 <field name="partner_name"/>
@@ -15,7 +15,7 @@
                 <field name="ai_confidence" widget="progressbar"/>
                 <field name="detected_date"/>
                 <field name="state" widget="badge" decoration-info="state=='new'" decoration-success="state=='resolved'" decoration-muted="state=='ignored'"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -81,7 +81,7 @@
     <record id="action_ibv_validation_result" model="ir.actions.act_window">
         <field name="name">Validation Results</field>
         <field name="res_model">ibv.validation.result</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No validation results yet

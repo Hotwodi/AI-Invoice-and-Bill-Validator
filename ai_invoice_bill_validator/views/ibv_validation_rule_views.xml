@@ -4,7 +4,7 @@
         <field name="name">ibv.validation.rule.tree</field>
         <field name="model">ibv.validation.rule</field>
         <field name="arch" type="xml">
-            <tree string="Validation Rules">
+            <list string="Validation Rules">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="rule_type"/>
@@ -12,7 +12,7 @@
                 <field name="severity"/>
                 <field name="violations_found"/>
                 <field name="active" widget="boolean_toggle"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -50,7 +50,7 @@
     <record id="action_ibv_validation_rule" model="ir.actions.act_window">
         <field name="name">Validation Rules</field>
         <field name="res_model">ibv.validation.rule</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new validation rule

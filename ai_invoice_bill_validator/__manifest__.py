@@ -1,6 +1,7 @@
 {
     'name': 'AI Invoice & Bill Validator',
     'version': '18.0.1.0.0',
+    'images': ['static/description/cover.png'],
     'category': 'Productivity/AI',
     'summary': 'AI-powered validation of invoices and bills with rule-based checks and risk scoring.',
     'description': """
